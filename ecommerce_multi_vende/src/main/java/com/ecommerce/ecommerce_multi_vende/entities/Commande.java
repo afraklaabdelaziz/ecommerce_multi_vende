@@ -44,6 +44,7 @@ public class Commande implements Serializable {
 
     public StatusCommande getStatusCommande() {
         return statusCommande;
+
     }
 
     public void setStatusCommande(StatusCommande statusCommande) {
