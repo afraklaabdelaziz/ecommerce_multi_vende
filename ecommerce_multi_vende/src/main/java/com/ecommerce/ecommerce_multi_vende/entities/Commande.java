@@ -19,6 +19,7 @@ public class Commande implements Serializable {
     public Commande() {
     }
 
+
     public Commande(String reference, StatusCommande statusCommande, Double prixTotal, List<CommandeItems> commandeItemsList) {
         this.reference = reference;
         this.statusCommande = statusCommande;

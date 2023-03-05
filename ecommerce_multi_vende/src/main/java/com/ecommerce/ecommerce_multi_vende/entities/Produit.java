@@ -2,6 +2,8 @@ package com.ecommerce.ecommerce_multi_vende.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+
 @Entity
 public class Produit implements Serializable {
     @Id
@@ -12,20 +14,27 @@ public class Produit implements Serializable {
     private Double prix;
     private int quantity;
     @ManyToOne
-    private UserApp userApp;
+    private UserApp vendeur;
     @ManyToOne
     private Category category;
+    @OneToMany(mappedBy = "produit")
+    private List<CommandeItems> commandeItemsList;
+    @OneToMany(mappedBy = "produit")
+    private List<Achat> achatList;
 
     public Produit() {
     }
 
-    public Produit(String nom, String reference, Double prix, int quantity, UserApp userApp, Category category) {
+
+    public Produit(String nom, String reference, Double prix, int quantity, UserApp vendeur, Category category, List<CommandeItems> commandeItemsList, List<Achat> achatList) {
         this.nom = nom;
         this.reference = reference;
         this.prix = prix;
         this.quantity = quantity;
-        this.userApp = userApp;
+        this.vendeur = vendeur;
         this.category = category;
+        this.commandeItemsList = commandeItemsList;
+        this.achatList = achatList;
     }
 
     public Long getId() {
@@ -68,12 +77,12 @@ public class Produit implements Serializable {
         this.quantity = quantity;
     }
 
-    public UserApp getUserApp() {
-        return userApp;
+    public UserApp getVendeur() {
+        return vendeur;
     }
 
-    public void setUserApp(UserApp userApp) {
-        this.userApp = userApp;
+    public void setVendeur(UserApp vendeur) {
+        this.vendeur = vendeur;
     }
 
     public Category getCategory() {
@@ -84,6 +93,22 @@ public class Produit implements Serializable {
         this.category = category;
     }
 
+    public List<CommandeItems> getCommandeItemsList() {
+        return commandeItemsList;
+    }
+
+    public void setCommandeItemsList(List<CommandeItems> commandeItemsList) {
+        this.commandeItemsList = commandeItemsList;
+    }
+
+    public List<Achat> getAchatList() {
+        return achatList;
+    }
+
+    public void setAchatList(List<Achat> achatList) {
+        this.achatList = achatList;
+    }
+
     @Override
     public String toString() {
         return "Produit{" +
@@ -92,7 +117,7 @@ public class Produit implements Serializable {
                 ", reference='" + reference + '\'' +
                 ", prix=" + prix +
                 ", quantity=" + quantity +
-                ", userApp=" + userApp +
+                ", userApp=" + vendeur +
                 ", category=" + category +
                 '}';
     }

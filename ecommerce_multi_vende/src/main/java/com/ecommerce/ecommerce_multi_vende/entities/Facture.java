@@ -11,8 +11,10 @@ public class Facture implements Serializable {
     private Long id;
     private LocalDate date;
     @ManyToOne
+    @Column(name = "id_livreur")
     private UserApp livreur;
     @ManyToOne
+    @Column(name = "id_client")
     private UserApp client;
     @OneToOne
     private Commande commande;

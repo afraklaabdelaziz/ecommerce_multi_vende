@@ -1,8 +1,10 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+
 @Entity
-public class User implements Serializable {
+public class UserApp implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,12 +16,20 @@ public class User implements Serializable {
     private String reference;
     @ManyToOne
     private Adresse adresse;
+    @OneToMany(mappedBy = "livreur")
+    private List<Facture> facturesLivreur;
+    @OneToMany(mappedBy = "client")
+    private List<Facture> facturesClient;
+    @ManyToMany
+    private List<Role> roles;
+    @OneToMany(mappedBy = "vendeur")
+    private List<Produit> produits;
     private Boolean isVendor;
 
-    public User() {
+    public UserApp() {
     }
 
-    public User(String nom, String prenom, String email, String telephone, String motDePasse, String reference, Adresse adresse, Boolean isVendor) {
+    public UserApp(String nom, String prenom, String email, String telephone, String motDePasse, String reference, Adresse adresse, List<Facture> facturesLivreur, List<Facture> facturesClient, List<Role> roles, List<Produit> produits, Boolean isVendor) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -27,6 +37,10 @@ public class User implements Serializable {
         this.motDePasse = motDePasse;
         this.reference = reference;
         this.adresse = adresse;
+        this.facturesLivreur = facturesLivreur;
+        this.facturesClient = facturesClient;
+        this.roles = roles;
+        this.produits = produits;
         this.isVendor = isVendor;
     }
 
@@ -92,6 +106,38 @@ public class User implements Serializable {
 
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
+    }
+
+    public List<Facture> getFacturesLivreur() {
+        return facturesLivreur;
+    }
+
+    public void setFacturesLivreur(List<Facture> facturesLivreur) {
+        this.facturesLivreur = facturesLivreur;
+    }
+
+    public List<Facture> getFacturesClient() {
+        return facturesClient;
+    }
+
+    public void setFacturesClient(List<Facture> facturesClient) {
+        this.facturesClient = facturesClient;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Produit> getProduits() {
+        return produits;
+    }
+
+    public void setProduits(List<Produit> produits) {
+        this.produits = produits;
     }
 
     public Boolean getVendor() {
