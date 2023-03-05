@@ -33,6 +33,7 @@ public class Achat implements Serializable {
         this.produit = produit;
     }
 
+
     @Override
     public String toString() {
         return "Achat{" +

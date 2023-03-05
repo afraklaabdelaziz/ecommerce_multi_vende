@@ -15,6 +15,8 @@ public class CommandeItems implements Serializable {
     @ManyToOne
     private Produit produit;
 
+
+
     public CommandeItems(Commande commande, String reference, int quantity, Produit produit) {
         this.commande = commande;
         this.reference = reference;

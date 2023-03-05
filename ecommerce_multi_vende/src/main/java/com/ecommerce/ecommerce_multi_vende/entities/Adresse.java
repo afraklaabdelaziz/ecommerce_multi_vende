@@ -1,10 +1,9 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+
 @Entity
 public class Adresse implements Serializable {
     @Id
@@ -14,6 +13,8 @@ public class Adresse implements Serializable {
     private String ville;
     private String adresse;
     private String codePostal;
+    @OneToMany(mappedBy = "adresse")
+    private List<UserApp> userAppList;
 
     public Adresse() {
     }
@@ -63,6 +64,14 @@ public class Adresse implements Serializable {
 
     public void setCodePostal(String codePostal) {
         this.codePostal = codePostal;
+    }
+
+    public List<UserApp> getUserAppList() {
+        return userAppList;
+    }
+
+    public void setUserAppList(List<UserApp> userAppList) {
+        this.userAppList = userAppList;
     }
 
     @Override
