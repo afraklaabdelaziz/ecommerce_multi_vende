@@ -1,5 +1,4 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
-
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
