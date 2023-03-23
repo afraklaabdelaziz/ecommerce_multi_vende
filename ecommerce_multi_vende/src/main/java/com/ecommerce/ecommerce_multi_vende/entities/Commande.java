@@ -2,6 +2,7 @@ package com.ecommerce.ecommerce_multi_vende.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -13,17 +14,19 @@ public class Commande implements Serializable {
     private StatusCommande statusCommande;
 
     private Double prixTotal;
+    private LocalDate date;
     @OneToMany(mappedBy = "commande")
     private List<CommandeItems> commandeItemsList;
 
     public Commande() {
     }
 
-
-    public Commande(String reference, StatusCommande statusCommande, Double prixTotal, List<CommandeItems> commandeItemsList) {
+    public Commande(Long id, String reference, StatusCommande statusCommande, Double prixTotal, LocalDate date, List<CommandeItems> commandeItemsList) {
+        this.id = id;
         this.reference = reference;
         this.statusCommande = statusCommande;
         this.prixTotal = prixTotal;
+        this.date = date;
         this.commandeItemsList = commandeItemsList;
     }
 
@@ -46,6 +49,14 @@ public class Commande implements Serializable {
     public StatusCommande getStatusCommande() {
         return statusCommande;
 
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public void setStatusCommande(StatusCommande statusCommande) {
