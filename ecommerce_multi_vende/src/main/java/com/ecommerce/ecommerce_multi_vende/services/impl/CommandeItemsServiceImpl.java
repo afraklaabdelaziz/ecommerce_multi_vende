@@ -16,13 +16,9 @@ import java.util.Optional;
 @Service
 public class CommandeItemsServiceImpl implements CommandeItemsService {
     private CommandeItemsRepository commandeItemsRepository;
-    private ProduitService produitService;
-    private CommandeService commandeService;
 
-    public CommandeItemsServiceImpl(CommandeItemsRepository commandeItemsRepository, ProduitService produitService, CommandeService commandeService) {
+    public CommandeItemsServiceImpl(CommandeItemsRepository commandeItemsRepository) {
         this.commandeItemsRepository = commandeItemsRepository;
-        this.produitService = produitService;
-        this.commandeService = commandeService;
     }
 
     @Override

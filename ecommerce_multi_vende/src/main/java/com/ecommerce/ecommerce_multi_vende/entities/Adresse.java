@@ -1,5 +1,8 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -65,11 +68,11 @@ public class Adresse implements Serializable {
     public void setCodePostal(String codePostal) {
         this.codePostal = codePostal;
     }
-
+@JsonIgnore
     public List<UserApp> getUserAppList() {
         return userAppList;
     }
-
+@JsonSetter
     public void setUserAppList(List<UserApp> userAppList) {
         this.userAppList = userAppList;
     }

@@ -8,4 +8,5 @@ public interface UserServices {
     ResponseDto addUser(UserApp userApp);
     UserDetails findByEmail(String email);
     ResponseDto findByTelephone(String telephone);
+    ResponseDto devenirVendeur();
 }

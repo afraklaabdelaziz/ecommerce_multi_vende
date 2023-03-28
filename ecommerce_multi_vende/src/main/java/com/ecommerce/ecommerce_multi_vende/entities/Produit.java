@@ -1,6 +1,8 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,6 +11,8 @@ public class Produit implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    @NotEmpty(message = "empty")
     private String nom;
     private String reference;
     private Double prix;
