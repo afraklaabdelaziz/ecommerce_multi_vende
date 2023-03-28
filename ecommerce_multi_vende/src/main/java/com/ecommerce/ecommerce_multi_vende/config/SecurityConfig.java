@@ -2,7 +2,6 @@ package com.ecommerce.ecommerce_multi_vende.config;
 
 import com.ecommerce.ecommerce_multi_vende.services.UserServices;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,20 +26,20 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
-    private UserServices userService;
+    private final UserServices userService;
 
     @Bean
    public SecurityFilterChain SecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**/authenticate/**").permitAll()
-                .antMatchers("/api/commande/**").hasAuthority("client")
-                .antMatchers("/api/produits").hasAnyAuthority("client","stock")
-                .antMatchers("/api/produits/**").hasAuthority("stock")
-                .antMatchers("/api/appelOffre/add").hasAuthority("stock")
-                .antMatchers("/api/appelOffre/appelsoffrestock/**").hasAuthority("stock")
-                .antMatchers("/api/appelOffre/**").hasAuthority("fournisseur")
+                .antMatchers("/api/v1/authenticate/**").permitAll()
+                .antMatchers("/api/v1/produit/**").hasAnyAuthority("admin","vendeur")
+                //.antMatchers("/api/produits").hasAnyAuthority("client","stock")
+                //.antMatchers("/api/produits/**").hasAuthority("stock")
+                //.antMatchers("/api/appelOffre/add").hasAuthority("stock")
+                //.antMatchers("/api/appelOffre/appelsoffrestock/**").hasAuthority("stock")
+                //.antMatchers("/api/appelOffre/**").hasAuthority("fournisseur")
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(STATELESS)
