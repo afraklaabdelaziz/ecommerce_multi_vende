@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ecommerce_multi_vende/ecommerce_multi_vende.iml" filepath="$PROJECT_DIR$/ecommerce_multi_vende/ecommerce_multi_vende.iml" />
+      <module fileurl="file://$PROJECT_DIR$/back-end/ecommerce_multi_vende.iml" filepath="$PROJECT_DIR$/back-end/ecommerce_multi_vende.iml" />
     </modules>
   </component>
 </project>
