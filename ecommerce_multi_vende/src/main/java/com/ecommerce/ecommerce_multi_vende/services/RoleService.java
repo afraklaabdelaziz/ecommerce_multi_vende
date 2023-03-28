@@ -6,4 +6,5 @@ import com.ecommerce.ecommerce_multi_vende.entities.Role;
 public interface RoleService {
     ResponseDto addRole(Role role);
     ResponseDto findAllRole();
+    ResponseDto findById(Long id);
 }

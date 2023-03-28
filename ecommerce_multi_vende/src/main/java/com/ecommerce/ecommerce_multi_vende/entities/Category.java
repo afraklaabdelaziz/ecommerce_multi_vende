@@ -10,7 +10,7 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    @OneToMany
+    @OneToMany(mappedBy = "category")
     List<Produit> produits;
 
     public Category() {

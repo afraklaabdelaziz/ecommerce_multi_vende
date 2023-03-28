@@ -1,6 +1,7 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,6 @@ public class UserApp implements Serializable {
     private String email;
     private String telephone;
     private String motDePasse;
-    private String reference;
     @ManyToOne
     private Adresse adresse;
     @OneToMany(mappedBy = "livreur")
@@ -21,7 +21,7 @@ public class UserApp implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Facture> facturesClient;
     @ManyToMany
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
     @OneToMany(mappedBy = "vendeur")
     private List<Produit> produits;
     private Boolean isVendor;
@@ -29,13 +29,12 @@ public class UserApp implements Serializable {
     public UserApp() {
     }
 
-    public UserApp(String nom, String prenom, String email, String telephone, String motDePasse, String reference, Adresse adresse, List<Facture> facturesLivreur, List<Facture> facturesClient, List<Role> roles, List<Produit> produits, Boolean isVendor) {
+    public UserApp(String nom, String prenom, String email, String telephone, String motDePasse, Adresse adresse, List<Facture> facturesLivreur, List<Facture> facturesClient, List<Role> roles, List<Produit> produits, Boolean isVendor) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.telephone = telephone;
         this.motDePasse = motDePasse;
-        this.reference = reference;
         this.adresse = adresse;
         this.facturesLivreur = facturesLivreur;
         this.facturesClient = facturesClient;
@@ -92,13 +91,6 @@ public class UserApp implements Serializable {
         this.motDePasse = motDePasse;
     }
 
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
 
     public Adresse getAdresse() {
         return adresse;
@@ -157,7 +149,6 @@ public class UserApp implements Serializable {
                 ", email='" + email + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", motDePasse='" + motDePasse + '\'' +
-                ", reference='" + reference + '\'' +
                 ", adresse=" + adresse +
                 ", isVendor=" + isVendor +
                 '}';
