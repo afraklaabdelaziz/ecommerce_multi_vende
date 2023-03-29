@@ -6,6 +6,7 @@
     <form method="post" #form="ngForm"  (submit)="register(form)">
 
       <div class="relative flex gap-3 w-full mb-3">
+
         <div class="w-full">
           <label
             class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -15,10 +16,28 @@
           </label>
           <input
             [(ngModel)]="user.nom" name="nom" type="text"
-            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
+            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             placeholder="Nom"
           />
         </div>
+
+        <div class="w-full">
+          <label
+            class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+            htmlFor="grid-password"
+          >
+            Prenom
+          </label>
+          <input
+            [(ngModel)]="user.prenom" name="prenom" type="text"
+            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            placeholder="Prenom"
+          />
+        </div>
+      </div>
+
+
+      <div class="relative flex gap-3 w-full mb-3">
 
         <div class="w-full">
           <label
@@ -34,11 +53,6 @@
           />
         </div>
 
-      </div>
-
-
-      <div class="relative flex gap-3 w-full mb-3">
-
         <div class="w-full">
           <label
             class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -52,38 +66,21 @@
             placeholder="Telephone"
           />
         </div>
-        <div class="w-full">
-          <label
-            class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-            htmlFor="grid-password"
-          >
-            Password
-          </label>
-          <input
-            [(ngModel)]="user.motDePasse" name="motDePasse" type="password"
-            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            placeholder="Password"
-          />
-        </div>
       </div>
 
-      <div class="relative w-full mb-3">
+      <div class="w-full">
         <label
           class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
           htmlFor="grid-password"
         >
-          Role
+          Password
         </label>
-
-        <select  [(ngModel)]="user.role.id" name="role"
-                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-        >
-          <option value="2">client</option>
-          <option value="3">propritaire</option>
-        </select>
-
+        <input
+          [(ngModel)]="user.motDePasse" name="motDePasse" type="password"
+          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          placeholder="Password"
+        />
       </div>
-
 
       <div class="relative flex gap-3 w-full mb-3">
 
@@ -135,7 +132,7 @@
           class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
           htmlFor="grid-password"
         >
-          Password
+          Code Postal
         </label>
         <input
           [(ngModel)]="user.adresse.codePostal" name="codePostal" type="text"
