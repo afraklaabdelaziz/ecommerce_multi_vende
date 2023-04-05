@@ -10,6 +10,7 @@ import { UserService } from '../services/user-service.service';
 export class RoleGuard implements CanActivate {
 
   token!: any
+  roles: String[] = []
   constructor(private userService: UserService,private router:Router) {
   }
   canActivate(
@@ -17,7 +18,13 @@ export class RoleGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     this.token = this.userService.getToken();
-    const authorized =  this.userService.getUser(this.token).authorities[0].authority.includes(route.data['role'])
+    
+    let roles = this.userService.getUser(this.token).authorities
+    for (let i = 0 ; i < roles.length ; i++) {
+      this.roles.push(roles[i].authority)
+    }
+    
+    const authorized =  this.roles.includes(route.data['role'])
     if (!authorized){
       this.router.navigate(['auth/login'])
     }

@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
 
   public login: Login;
+  roles:String[] = []
 
   constructor(private userService:UserService,public router:Router) {
     this.login = new Login();
@@ -37,18 +38,24 @@ export class LoginComponent {
             timer: 2000
           })
           localStorage.setItem("token", res.data)
-          let role = this.userService.getUser(res.data).authorities[0].authority
-          switch (role) {
-            case "client" :
-              this.router.navigate([""]);
-              break;
-            case "admin" :
-              this.router.navigate(["/admin"]);
-              break;
-            case "proprietaire" :
-              this.router.navigate(["/owner"]);
-              break;
+          let roles = this.userService.getUser(res.data).authorities
+          for (let i = 0 ; i < roles.length ; i++) {
+            this.roles.push(roles[i].authority)
           }
+          if (this.roles.includes("admin")){
+            this.router.navigate(["/admin"])
+          }
+          // switch (this.role) {
+          //   case "client" :
+          //     this.router.navigate([""]);
+          //     break;
+          //   case "admin" :
+          //     this.router.navigate(["/admin"]);
+          //     break;
+          //   case "proprietaire" :
+          //     this.router.navigate(["/owner"]);
+          //     break;
+          // }
         }
 
       }
