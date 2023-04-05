@@ -7,4 +7,5 @@ public interface DemmandeService {
     ResponseDto addDemmande(DemandeVendeur demandeVendeur);
     ResponseDto findAllDemmande();
     ResponseDto findDemmandeUser(String email);
+    ResponseDto findDemmandeById(Long id);
 }

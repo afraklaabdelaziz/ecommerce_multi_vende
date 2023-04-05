@@ -50,4 +50,14 @@ public class DemmandeServiceImpl implements DemmandeService {
         }
 
     }
+
+    @Override
+    public ResponseDto findDemmandeById(Long id) {
+        Optional<DemandeVendeur> demandeVendeur = demmandRepository.findById(id);
+        if (!demandeVendeur.isPresent()){
+            return new ResponseDto("bad request","demmande n'exist pas");
+        }else {
+            return new ResponseDto("success","demmande est ",demandeVendeur);
+        }
+    }
 }
