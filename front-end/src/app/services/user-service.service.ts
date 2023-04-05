@@ -33,14 +33,14 @@ export class UserService {
   }
 
   findUser(email:string):Observable<any>{
-    return this.http.get("http://localhost:8088/user/oneUser/"+email)
+    return this.http.get("http://localhost:8091/api/v1/user/oneUser/"+email)
   }
 
   login(login:any):Observable<any> {
     return this.http.post(`http://localhost:8091/api/v1/authenticate/login`,login)
   }
   logout():Observable<any>{
-    return this.http.post(`http://localhost:8088/user/logout`,null)
+    return this.http.post(`http://localhost:8091/api/v1/user/logout`,null)
   }
 
 
