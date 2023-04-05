@@ -1,6 +1,7 @@
 package com.ecommerce.ecommerce_multi_vende.services.impl;
 
 import com.ecommerce.ecommerce_multi_vende.dto.ResponseDto;
+import com.ecommerce.ecommerce_multi_vende.entities.DemandeVendeur;
 import com.ecommerce.ecommerce_multi_vende.entities.Role;
 import com.ecommerce.ecommerce_multi_vende.entities.UserApp;
 import com.ecommerce.ecommerce_multi_vende.repositories.UserRepository;
@@ -21,12 +22,14 @@ import java.util.Optional;
 public class UserServiceImpl implements UserServices {
     private UserRepository userRepository;
     private AdresseService adresseService;
+    private DemmandeService demmandeService;
     private RoleService roleService;
     private MailService mailService;
 
-    public UserServiceImpl(UserRepository userRepository, AdresseService adresseService,RoleService roleService,MailService mailService) {
+    public UserServiceImpl(UserRepository userRepository, AdresseService adresseService, DemmandeService demmandeService, RoleService roleService, MailService mailService) {
         this.userRepository = userRepository;
         this.adresseService = adresseService;
+        this.demmandeService = demmandeService;
         this.roleService = roleService;
         this.mailService = mailService;
     }
@@ -47,7 +50,7 @@ public class UserServiceImpl implements UserServices {
             userApp.setVendor(false);
             adresseService.addAdresse(userApp.getAdresse());
             userRepository.save(userApp);
-            mailService.sendEmail(userApp.getEmail(),"votre compte a ete cree avec success","Creation de compte");
+          //  mailService.sendEmail(userApp.getEmail(),"votre compte a ete cree avec success","Creation de compte");
             return new ResponseDto("success","votre compte a ete cree avec success",userApp);
         }
     }
@@ -75,19 +78,45 @@ public class UserServiceImpl implements UserServices {
     }
 
     @Override
-    public ResponseDto devenirVendeur() {
+    public ResponseDto findUserAppByEmail(String email) {
+        Optional<UserApp> user = userRepository.findByEmail(email);
+        if (!user.isPresent()){
+            return new ResponseDto("bad requeste","user n'exist pas");
+        }else {
+            return new ResponseDto("success","user",user.get());
+        }
+
+    }
+
+    @Override
+    public ResponseDto devenirVendeur(DemandeVendeur demandeVendeur) {
         Object principale = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principale instanceof User){
           User user = (User) principale;
           Optional<UserApp> userApp =  userRepository.findByEmail(user.getUsername());
-          userApp.get().setVendor(true);
-          Role role = (Role) roleService.findById(3L).getData();
-          userApp.get().getRoles().add(role);
-          userRepository.save(userApp.get());
+            demandeVendeur.setUserApp(userApp.get());
+            demmandeService.addDemmande(demandeVendeur);
+         // userRepository.save(userApp.get());
           return new ResponseDto("success","vous avez maintenant vendeur",userApp);
         }else {
             return new ResponseDto("bad request","user n'est pas authentifier");
         }
+    }
+
+    @Override
+    public ResponseDto responseDemmandeVendeur(Boolean response,Long idDemmande) {
+        if (response){
+             DemandeVendeur demandeVendeur = (DemandeVendeur) demmandeService.findDemmandeById(idDemmande).getData();
+             Optional<UserApp> userApp = userRepository.findByEmail(demandeVendeur.getUserApp().getEmail());
+             userApp.get().setVendor(true);
+             Role role = (Role) roleService.findById(3L).getData();
+             userApp.get().getRoles().add(role);
+            userRepository.save(userApp.get());
+            return new ResponseDto("success","vous éte maintenant vendeur");
+        }else {
+            return new ResponseDto("success","votre demmande est refuser");
+        }
+
     }
 
 
