@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/v1/produit")
+@CrossOrigin("http://localhost:62250")
 public class ProduitController {
     ProduitService produitService;
 

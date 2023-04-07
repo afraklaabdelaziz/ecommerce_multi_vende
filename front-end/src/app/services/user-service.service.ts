@@ -12,7 +12,7 @@ export class UserService {
   constructor(private http: HttpClient,private router:Router) { }
 
   getAllUsers():Observable<any>{
-    return this.http.get("http://localhost:8088/user/all")
+    return this.http.get("http://localhost:8091/api/v1/user/all")
   }
 
   register(user:User):Observable<any>{
@@ -29,7 +29,7 @@ export class UserService {
   }
 
   updateUser(id:number,user:User):Observable<any>{
-    return this.http.put("http://localhost:8088/user/update/"+id,user);
+    return this.http.put("http://localhost:8091/aoi/v1/user/update/"+id,user);
   }
 
   findUser(email:string):Observable<any>{
