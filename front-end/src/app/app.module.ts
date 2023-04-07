@@ -21,6 +21,9 @@ import { AllUsersComponent } from './pages/all-users/all-users.component';
 import { ProduitListComponent } from './pages/produit-list/produit-list.component';
 import { AddProduitComponent } from './pages/add-produit/add-produit.component';
 import { ProduitsComponent } from './pages/produits/produits.component';
+import { PanierComponent } from './pages/panier/panier.component';
+import { CommandeComponent } from './pages/commande/commande.component';
+import { PanierDropDownComponent } from './components/panier-drop-down/panier-drop-down.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,9 @@ import { ProduitsComponent } from './pages/produits/produits.component';
     ProduitListComponent,
     AddProduitComponent,
     ProduitsComponent,
+    PanierComponent,
+    CommandeComponent,
+    PanierDropDownComponent,
   ],
   imports: [
     BrowserModule,
