@@ -1,8 +1,11 @@
 package com.ecommerce.ecommerce_multi_vende.services.impl;
 
 import com.ecommerce.ecommerce_multi_vende.dto.ResponseDto;
+import com.ecommerce.ecommerce_multi_vende.entities.Category;
 import com.ecommerce.ecommerce_multi_vende.entities.Produit;
+import com.ecommerce.ecommerce_multi_vende.repositories.CategoryRepository;
 import com.ecommerce.ecommerce_multi_vende.repositories.ProduitRepository;
+import com.ecommerce.ecommerce_multi_vende.services.CategoryService;
 import com.ecommerce.ecommerce_multi_vende.services.ProduitService;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +14,11 @@ import java.util.Optional;
 @Service
 public class ProduitServiceImpl implements ProduitService {
     private final ProduitRepository produitRepository;
+    private CategoryRepository categoryRepository;
 
-    public ProduitServiceImpl(ProduitRepository produitRepository) {
+    public ProduitServiceImpl(ProduitRepository produitRepository, CategoryRepository categoryRepository) {
         this.produitRepository = produitRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -23,6 +28,9 @@ public class ProduitServiceImpl implements ProduitService {
         }else if (produit.getPrix() <= 0){
             return new ResponseDto("bad request","prix est inferieur ou egale a 0");
         }else {
+           Optional<Category> category = categoryRepository.findById(produit.getCategory().getId());
+            produit.setCategory(category.get());
+            System.out.println(produit);
             produitRepository.save(produit);
             return new ResponseDto("success","produit a été ajouter avec success",produit);
         }

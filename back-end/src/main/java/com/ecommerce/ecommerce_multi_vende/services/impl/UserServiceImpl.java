@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -25,21 +27,23 @@ public class UserServiceImpl implements UserServices {
     private DemmandeService demmandeService;
     private RoleService roleService;
     private MailService mailService;
+    private PdfGeneratorService pdfGenerator;
 
-    public UserServiceImpl(UserRepository userRepository, AdresseService adresseService, DemmandeService demmandeService, RoleService roleService, MailService mailService) {
+    public UserServiceImpl(UserRepository userRepository, AdresseService adresseService, DemmandeService demmandeService, RoleService roleService, MailService mailService,PdfGeneratorService pdfGenerator) {
         this.userRepository = userRepository;
         this.adresseService = adresseService;
         this.demmandeService = demmandeService;
         this.roleService = roleService;
         this.mailService = mailService;
+        this.pdfGenerator = pdfGenerator;
     }
 
     @Override
-    public ResponseDto addUser(UserApp userApp) {
+    public ResponseDto addUser(UserApp userApp){
         if (userApp == null ){
             return new ResponseDto("Bad request","ce user est null");
-        }else if(userApp.getNom() == null || userApp.getMotDePasse() == null
-                || userApp.getTelephone() == null || userApp.getEmail() == null){
+        }else if(userApp.getNom() == "" || userApp.getMotDePasse() == ""
+                || userApp.getTelephone() == "" || userApp.getEmail() == ""){
             return new ResponseDto("Bad request","compliter les information de user");
         }else if (userRepository.findByEmail(userApp.getEmail()).isPresent()){
             return new ResponseDto("Bad request","cet email a deja existe");
@@ -50,7 +54,7 @@ public class UserServiceImpl implements UserServices {
             userApp.setVendor(false);
             adresseService.addAdresse(userApp.getAdresse());
             userRepository.save(userApp);
-          //  mailService.sendEmail(userApp.getEmail(),"votre compte a ete cree avec success","Creation de compte");
+           // mailService.sendEmail(userApp.getEmail(),"votre compte a ete cree avec success","Creation de compte","zzz");
             return new ResponseDto("success","votre compte a ete cree avec success",userApp);
         }
     }
@@ -78,6 +82,11 @@ public class UserServiceImpl implements UserServices {
     }
 
     @Override
+    public ResponseDto findAll() {
+        return new ResponseDto("success","All users",userRepository.findAll());
+    }
+
+    @Override
     public ResponseDto findUserAppByEmail(String email) {
         Optional<UserApp> user = userRepository.findByEmail(email);
         if (!user.isPresent()){
@@ -96,7 +105,6 @@ public class UserServiceImpl implements UserServices {
           Optional<UserApp> userApp =  userRepository.findByEmail(user.getUsername());
             demandeVendeur.setUserApp(userApp.get());
             demmandeService.addDemmande(demandeVendeur);
-         // userRepository.save(userApp.get());
           return new ResponseDto("success","vous avez maintenant vendeur",userApp);
         }else {
             return new ResponseDto("bad request","user n'est pas authentifier");

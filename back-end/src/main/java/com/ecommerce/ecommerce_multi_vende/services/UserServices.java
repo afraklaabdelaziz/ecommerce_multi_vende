@@ -4,11 +4,13 @@ import com.ecommerce.ecommerce_multi_vende.dto.ResponseDto;
 import com.ecommerce.ecommerce_multi_vende.entities.DemandeVendeur;
 import com.ecommerce.ecommerce_multi_vende.entities.UserApp;
 
+import javax.mail.MessagingException;
+
 public interface UserServices {
     ResponseDto addUser(UserApp userApp);
     ResponseDto findByEmail(String email);
     ResponseDto findByTelephone(String telephone);
-
+    ResponseDto findAll();
     ResponseDto findUserAppByEmail(String email);
 
     ResponseDto devenirVendeur(DemandeVendeur demandeVendeur);
