@@ -11,10 +11,14 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { AllUsersComponent } from './pages/all-users/all-users.component';
 import { ProduitListComponent } from './pages/produit-list/produit-list.component';
 import { ProduitsComponent } from './pages/produits/produits.component';
+import { PanierComponent } from './pages/panier/panier.component';
 
 const routes: Routes = [
   {
     path: "produit",component: ProduitsComponent
+  },
+  {
+    path: "panier",component: PanierComponent
   },
 
   {
