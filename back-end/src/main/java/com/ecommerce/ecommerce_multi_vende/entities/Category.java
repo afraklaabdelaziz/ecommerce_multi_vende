@@ -1,5 +1,8 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -36,11 +39,11 @@ public class Category implements Serializable {
     public void setNom(String nom) {
         this.nom = nom;
     }
-
+    @JsonIgnore
     public List<Produit> getProduits() {
         return produits;
     }
-
+    @JsonSetter
     public void setProduits(List<Produit> produits) {
         this.produits = produits;
     }
@@ -50,7 +53,6 @@ public class Category implements Serializable {
         return "Category{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
-                ", produits=" + produits +
                 '}';
     }
 }
