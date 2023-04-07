@@ -17,6 +17,10 @@ import { StatistiqueComponent } from './components/statistique/statistique.compo
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { StatistiqueVendeurComponent } from './components/statistique-vendeur/statistique-vendeur.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { AllUsersComponent } from './pages/all-users/all-users.component';
+import { ProduitListComponent } from './pages/produit-list/produit-list.component';
+import { AddProduitComponent } from './pages/add-produit/add-produit.component';
+import { ProduitsComponent } from './pages/produits/produits.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,10 @@ import { LogoutComponent } from './components/logout/logout.component';
     StatisticComponent,
     StatistiqueVendeurComponent,
     LogoutComponent,
+    AllUsersComponent,
+    ProduitListComponent,
+    AddProduitComponent,
+    ProduitsComponent,
   ],
   imports: [
     BrowserModule,

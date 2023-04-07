@@ -8,8 +8,14 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import * as path from "path";
 import { LogoutComponent } from './components/logout/logout.component';
+import { AllUsersComponent } from './pages/all-users/all-users.component';
+import { ProduitListComponent } from './pages/produit-list/produit-list.component';
+import { ProduitsComponent } from './pages/produits/produits.component';
 
 const routes: Routes = [
+  {
+    path: "produit",component: ProduitsComponent
+  },
 
   {
     path: "auth",
@@ -25,7 +31,9 @@ const routes: Routes = [
     path: "admin",
     component: AdminComponent ,canActivate: [AuthGuard,RoleGuard],data:{role:'admin'},
     children: [
-      {path: "logout",component: LogoutComponent}
+      {path: "logout",component: LogoutComponent},
+      {path: "users",component: AllUsersComponent},
+      {path: "produit-list",component: ProduitListComponent}
     ]
   },
 ];
