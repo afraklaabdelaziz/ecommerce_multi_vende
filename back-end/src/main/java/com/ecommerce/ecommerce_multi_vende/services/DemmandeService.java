@@ -8,4 +8,8 @@ public interface DemmandeService {
     ResponseDto findAllDemmande();
     ResponseDto findDemmandeUser(String email);
     ResponseDto findDemmandeById(Long id);
+
+    ResponseDto deleteDemmande(Long id);
+
+    Long count();
 }

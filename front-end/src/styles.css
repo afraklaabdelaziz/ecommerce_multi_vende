@@ -9,9 +9,22 @@ ul {
   padding: 0;
   list-style: none;
 }
+.div_status{
+  width: 200px;
+}
+.status{
+  width: 100px;
+  height: 100px;
+  border: 10px solid orange;
+}
+.confirme{
+  width: 100px;
+  height: 100px;
+  border: 10px solid green;
+}
 
 img {
-  max-width: 100%;
+  max-width: 100%!important;
 }
 
 .img-full {
@@ -92,6 +105,47 @@ input[type="checkbox"] + label:before {
   -o-transition: .3s;
   transition: .3s;
 }
+
+@media (max-width: 479px) {
+  .pagination {
+    margin-bottom: 10px;
+  }
+}
+
+.pagination ul li {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #f1f1f1;
+  border-radius: 3px;
+  margin-left: 3px;
+}
+
+.pagination ul li:first-child {
+  margin-left: 0;
+}
+
+.pagination ul li a {
+  display: block;
+  border-radius: 3px;
+}
+
+.pagination ul li a:hover {
+  background: #E72463;
+  color: #ffffff;
+}
+
+.pagination ul li.current {
+  background: #E72463;
+  color: #ffffff;
+}
+
+.pagination ul li.next {
+  width: 40px;
+}
+
 
 input[type="checkbox"] + label:after {
   position: absolute;

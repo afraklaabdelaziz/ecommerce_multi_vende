@@ -1,4 +1,7 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -99,19 +102,19 @@ public class UserApp implements Serializable {
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
-
+    @JsonIgnore
     public List<Facture> getFacturesLivreur() {
         return facturesLivreur;
     }
-
+    @JsonSetter
     public void setFacturesLivreur(List<Facture> facturesLivreur) {
         this.facturesLivreur = facturesLivreur;
     }
-
+    @JsonIgnore
     public List<Facture> getFacturesClient() {
         return facturesClient;
     }
-
+    @JsonSetter
     public void setFacturesClient(List<Facture> facturesClient) {
         this.facturesClient = facturesClient;
     }
@@ -123,11 +126,11 @@ public class UserApp implements Serializable {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
+    @JsonIgnore
     public List<Produit> getProduits() {
         return produits;
     }
-
+    @JsonSetter
     public void setProduits(List<Produit> produits) {
         this.produits = produits;
     }

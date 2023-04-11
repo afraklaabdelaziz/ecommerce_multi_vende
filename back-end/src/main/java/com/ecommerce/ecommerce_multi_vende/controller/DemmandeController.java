@@ -26,4 +26,8 @@ public class DemmandeController {
     public ResponseDto demmandeUser(@RequestParam String email){
         return demmandeService.findDemmandeUser(email);
     }
+    @GetMapping("/count")
+    public Long count(){
+        return demmandeService.count();
+    }
 }

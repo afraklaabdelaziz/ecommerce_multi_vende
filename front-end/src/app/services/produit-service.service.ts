@@ -10,12 +10,12 @@ export class ProduitService {
 
   constructor(private http:HttpClient) { }
 
-  getAllProduits():Observable<any>{
-    return this.http.get("http://localhost:8091/api/v1/produit/all")
+  getAllProduits(page:number):Observable<any>{
+    return this.http.get(`http://localhost:8091/api/v1/produit/all?size=6&page=${page}`)
   }
 
-  getAllProduitOfVendor(email:string):Observable<any>{
-    return this.http.get("http://localhost:8088/hotel/proprietair/"+email)
+  getAllProduitOfVendor(page:number):Observable<any>{
+    return this.http.get(`http://localhost:8091/api/v1/produit/all-of-vendeur?size=6&page=${page}`)
   }
 
   addProduit(produit:Produit):Observable<any>{
@@ -26,12 +26,17 @@ export class ProduitService {
     return this.http.get("http://localhost:8091/api/v1/produit/one/"+id);
   }
 
-  updateProduit(produit:Produit,id:number):Observable<any>{
-    return this.http.put("http://localhost:8091/api/v1/produit/update/"+id,produit);
+  updateProduit(produit:Produit):Observable<any>{
+    return this.http.put("http://localhost:8091/api/v1/produit/update",produit);
   }
 
   deleteProduit(id:number):Observable<any>{
     return this.http.delete("http://localhost:8091/api/v1/produit/delete/"+id)
   }
-
+  countByVendeur():Observable<any>{
+    return this.http.get("http://localhost:8091/api/v1/produit/count-by-vendeur")
+  }
+  count():Observable<any>{
+    return this.http.get("http://localhost:8091/api/v1/produit/count")
+  }
 }

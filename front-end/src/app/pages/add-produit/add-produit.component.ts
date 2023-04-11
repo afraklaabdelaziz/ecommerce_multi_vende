@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Category } from 'src/app/models/category';
 import { Produit } from 'src/app/models/produit';
+import { CategotyServiceService } from 'src/app/services/categoty-service.service';
 import { ProduitService } from 'src/app/services/produit-service.service';
 import { UserService } from 'src/app/services/user-service.service';
 import Swal from 'sweetalert2';
@@ -12,14 +14,23 @@ import Swal from 'sweetalert2';
   templateUrl: './add-produit.component.html',
   styleUrls: ['./add-produit.component.css']
 })
-export class AddProduitComponent {
+export class AddProduitComponent implements OnInit{
   produit:Produit;
   token: any;
   user: any;
   email!: string;
-  constructor(private produitService:ProduitService,public router:Router,private userService:UserService,private sanitizare:DomSanitizer) {
+
+  categories:Category[] = []
+  constructor(private produitService:ProduitService,private categoryService:CategotyServiceService,public router:Router,private userService:UserService,private sanitizare:DomSanitizer) {
     this.produit = new Produit();
   }
+
+  ngOnInit(): void {
+        this.categoryService.getAllGategories().subscribe((res)=>{
+          this.categories = res.data
+          console.log(this.categories[0].nom)
+        })
+    }
 
   addHotel(form: NgForm) {
     this.token = this.userService.getToken()

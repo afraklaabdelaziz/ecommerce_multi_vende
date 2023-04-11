@@ -24,6 +24,14 @@ import { ProduitsComponent } from './pages/produits/produits.component';
 import { PanierComponent } from './pages/panier/panier.component';
 import { CommandeComponent } from './pages/commande/commande.component';
 import { PanierDropDownComponent } from './components/panier-drop-down/panier-drop-down.component';
+import { ClientComponent } from './layout/client/client.component';
+import { AddDemmandeVendeurComponent } from './pages/add-demmande-vendeur/add-demmande-vendeur.component';
+import { ListDemmandeVendeurComponent } from './pages/list-demmande-vendeur/list-demmande-vendeur.component';
+import { ListProduitVendeurComponent } from './pages/list-produit-vendeur/list-produit-vendeur.component';
+import { ListCommandeClientComponent } from './pages/list-commande-client/list-commande-client.component';
+import { CommandeDetailsComponent } from './pages/commande-details/commande-details.component';
+import { SideBarVendeurComponent } from './components/side-bar-vendeur/side-bar-vendeur.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +54,14 @@ import { PanierDropDownComponent } from './components/panier-drop-down/panier-dr
     PanierComponent,
     CommandeComponent,
     PanierDropDownComponent,
+    ClientComponent,
+    AddDemmandeVendeurComponent,
+    ListDemmandeVendeurComponent,
+    ListProduitVendeurComponent,
+    ListCommandeClientComponent,
+    CommandeDetailsComponent,
+    SideBarVendeurComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

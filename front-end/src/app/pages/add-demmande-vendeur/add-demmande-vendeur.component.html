@@ -1,0 +1,44 @@
+<div class="px-4">
+  <div class="flex">
+    <div class="w-full">
+      <div
+        class="relative flex break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
+      >
+        <div class="px-4 py-10 pt-0">
+
+          <form method="post" #form="ngForm" (submit)="addDemmande(form)">
+            <div class="relative flex gap-3 w-full mb-3">
+
+            </div>
+
+            <div class="relative flex flex-column gap-3 w-full mb-3">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Demmande
+              </label>
+              <textarea
+                [(ngModel)]="demmande.demmande" name="demmande" type="text"
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                placeholder="Demmande"
+              ></textarea>
+            </div>
+
+            <div class="text-center mt-6">
+              <button
+                class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                type="submit"
+              >
+                add
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

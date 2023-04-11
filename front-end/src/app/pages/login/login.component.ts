@@ -37,13 +37,17 @@ export class LoginComponent {
             showConfirmButton: false,
             timer: 2000
           })
-          localStorage.setItem("token", res.data)
+          localStorage.setItem("token",res.data)
           let roles = this.userService.getUser(res.data).authorities
           for (let i = 0 ; i < roles.length ; i++) {
             this.roles.push(roles[i].authority)
           }
           if (this.roles.includes("admin")){
             this.router.navigate(["/admin"])
+          }else if (this.roles.includes("vendeur")){
+            this.router.navigate(["/vendeur"])
+          }else {
+            this.router.navigate([''])
           }
           // switch (this.role) {
           //   case "client" :

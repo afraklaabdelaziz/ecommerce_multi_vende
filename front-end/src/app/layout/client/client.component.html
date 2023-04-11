@@ -1,0 +1,114 @@
+<header class="main-header-area">
+  <!-- Main Header Area Start -->
+  <div class="main-header header-sticky">
+    <div class="container custom-area d-flex justify-content-between">
+      <div class="row align-items-center">
+        <div class="col-lg-2 col-xl-2 col-md-6 col-6 col-custom">
+          <div class="header-logo d-flex align-items-center">
+            <a href="index.html">
+              <img class="img-full" src="assets/images/logo/logo.png" alt="Header Logo">
+            </a>
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-2 col-md-6 col-6 col-custom">
+          <div class="flex justify-end">
+
+            <div  *ngIf="token == null"  class="flex justify-center items-center text-center  md:flex gap-3" >
+              <a class="block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded" routerLink="/auth/login">login</a>
+              <a class="block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded" routerLink="/auth/register">register</a>
+            </div>
+
+
+
+            <div *ngIf="token != null">
+              <div class="header-right-area main-nav">
+                <ul class="nav">
+                  <li class="minicart-wrap">
+                    <app-panier-drop-down></app-panier-drop-down>
+                  </li>
+                  <li class="sidemenu-wrap">
+                    <a href="#" class="minicart-btn toolbar-btn">
+                      <div *ngIf="userFound.image == null && token != null"  class="flex justify-center items-center text-1xl bg-blue-200 shadow-xl rounded-full border-none h-10 w-10" >
+                          <span>
+                            {{userFound.nom[0].toUpperCase()}}  {{userFound.nom[1].toUpperCase()}}
+                          </span>
+                      </div>
+
+                      <a [routerLink]="['/profile']" >
+                        <img *ngIf="userFound.image != null && token != null "
+                             alt="..."
+                             src="assets/img/team-2-800x800.jpg"
+                             [src]="image"
+                             class="shadow-xl rounded-full h-auto align-middle border-none h-11 w-11"/>
+                      </a>
+                    </a>
+                    <div class="cart-item-wrapper dropdown-sidemenu dropdown-hover-2 w-[100]">
+
+                        <a
+                          [routerLink]="['/mes-commandes']"
+                          class="text-sm py-2 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                        >
+                          Mes Commandes
+                        </a>
+
+                        <a
+                          [routerLink]="['/profile']"
+                          class="text-sm py-2 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                        >
+                          Profile
+                        </a>
+
+                        <a (click)="toggleModalAdd()" class="text-sm py-2 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700" type="button">
+                          Devinir Vendeur
+                        </a>
+
+                        <a
+                          [routerLink]="['/logout']"
+                          class="text-sm py-2 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                        >
+                          Logout
+                        </a>
+                      </div>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+
+
+<!--start form add-->
+<div *ngIf="showModalAdd" class="overflow-x-hidden fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+  <div class="relative w-auto max-w-4xl">
+    <!--content-->
+    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+      <!--header-->
+      <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+        <h3 class="text-3xl font-semibold">
+          Modal Title
+        </h3>
+        <button class=" ml-auto border-0 text-black  text-3xl leading-none font-semibold outline-none focus:outline-none" (click)="toggleModalAdd()">
+          <span class="text-black  h-6 w-6 text-2xl block outline-none focus:outline-none">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+      </div>
+      <!--body-->
+      <div>
+        <app-add-demmande-vendeur></app-add-demmande-vendeur>
+        <button class="text-red-500 text-end background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModalAdd()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showModalAdd" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+<!--end form add-->
+
+
+<router-outlet></router-outlet>

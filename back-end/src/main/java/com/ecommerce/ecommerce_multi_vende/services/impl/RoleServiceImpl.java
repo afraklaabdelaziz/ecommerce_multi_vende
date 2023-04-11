@@ -37,7 +37,7 @@ public class RoleServiceImpl implements RoleService {
         if (!role.isPresent()){
             return new ResponseDto("bad request","role n'exist pas");
         }else {
-            return new ResponseDto("success","role",role.get());
+            return new ResponseDto("success","role",role);
         }
     }
 }
