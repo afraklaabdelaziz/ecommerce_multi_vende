@@ -76,7 +76,7 @@ export class AllUsersComponent {
   }
 
   updateUser(ngForm:NgForm) {
-    this.userService.updateUser(this.idUser,this.userFound).subscribe((res)=>{
+    this.userService.updateUser(this.userFound).subscribe((res)=>{
 
 
       if (res.status === 'success'){

@@ -1,0 +1,138 @@
+
+<div>
+  <p class="h3 m-5">Status de votre  Commande</p>
+
+  <img src="" alt="">
+
+  <div>
+    <div class="d-flex flex-column flex-md-row justify-content-md-around align-items-center mb-4 gap-3 w-100">
+      <div  class="align-items-center div_status d-flex flex-column gap-3">
+                 <div *ngIf="commande.statusCommande == 'EN_COURS' || commande.statusCommande == 'LIVRER' || commande.statusCommande == 'EN_COURS_LIVRAISON' || commande.statusCommande == 'EN_COURS_EXPEDITION';else elseEnCour " class="rounded-circle confirme text-center">
+                    <i class="fas fa-check mt-2 text-success fa-4x"></i>
+                </div>
+        <ng-template #elseEnCour >
+          <div class="rounded-circle status"></div>
+        </ng-template>
+
+
+        <span class="">
+                  Confirmée
+              </span>
+      </div>
+
+
+      <div class="align-items-center div_status d-flex flex-column gap-3">
+
+                    <div *ngIf="commande.statusCommande == 'EN_COURS_EXPEDITION' || commande.statusCommande == 'EN_COURS_LIVRAISON' || commande.statusCommande == 'LIVRER' ;else elseEnCours " class="rounded-circle confirme text-center">
+                        <i class="fas fa-check mt-2 text-success fa-4x"></i>
+                    </div>
+        <ng-template #elseEnCours >
+          <div class="rounded-circle status"></div>
+        </ng-template>
+
+        <span class="">
+                En cours d'expedition
+            </span>
+      </div>
+
+
+      <div class="align-items-center div_status d-flex flex-column gap-3">
+
+                    <div *ngIf="commande.statusCommande == 'EN_COURS_LIVRAISON' || commande.statusCommande == 'LIVRER';else elseEnL" class="rounded-circle confirme text-center">
+                        <i class="fas fa-check mt-2 text-success fa-4x"></i>
+                    </div>
+
+                   <ng-template #elseEnL>
+                     <div class="rounded-circle status"></div>
+                  </ng-template>
+
+        <span class="">
+               En cours de livraison
+            </span>
+      </div>
+
+
+      <div class="align-items-center justify-content-center div_status d-flex flex-column gap-3">
+                    <div *ngIf="commande.statusCommande == 'LIVRER';else elseLi" class="rounded-circle confirme text-center">
+                        <i class="fas fa-check mt-2 text-success fa-4x"></i>
+                    </div>
+
+                    <ng-template #elseLi >
+                      <div class="rounded-circle status"></div>
+                    </ng-template>
+
+        <span class="">
+                Livrée
+            </span>
+      </div>
+
+
+
+    </div>
+
+  </div>
+</div>
+
+
+<div
+  class="relative flex flex-col bg-white min-w-0 break-words w-full mb-6 shadow-lg rounded"
+>
+  <div class="rounded-t mb-0 px-4 py-3 border-0">
+    <div class="flex flex-wrap items-center">
+      <div class="relative w-full px-4 max-w-full flex justify-between ">
+        <h3
+          class="font-semibold text-lg text-blueGray-700"
+        >
+          Produit de commande
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="block w-full overflow-x-auto">
+    <!-- Projects table -->
+    <table class="items-center w-full bg-transparent border-collapse">
+      <thead>
+      <tr>
+        <th
+          class=" bg-blueGray-50 text-blueGray-500 border-blueGray-100 px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+        >
+          Produit
+        </th>
+        <th
+          class=" bg-blueGray-50 text-blueGray-500 border-blueGray-100 px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+        >
+          Prix
+        </th>
+        <th
+          class=" bg-blueGray-50 text-blueGray-500 border-blueGray-100 px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+        >
+          Quantity
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let commandeItem of commandeItems">
+
+        <td
+          class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+        >
+          {{commandeItem.produit.nom}}
+        </td>
+        <td
+          class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+        >
+          {{commandeItem.produit.prix}}
+        </td>
+
+        <td
+          class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+        >
+          {{commandeItem.quantity}}
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

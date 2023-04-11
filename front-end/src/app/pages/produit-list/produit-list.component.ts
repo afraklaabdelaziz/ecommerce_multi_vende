@@ -24,6 +24,8 @@ export class ProduitListComponent implements OnInit {
 
   showModal = false;
   showModalAdd = false;
+  totalPage:number = 0
+  page:number = 0
 
   toggleModal() {
     this.showModal = !this.showModal;
@@ -34,8 +36,15 @@ export class ProduitListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.produitService.getAllProduits().subscribe((res) => {
-      this.produits = res.data;
+    this.produitService.getAllProduits(0).subscribe((res) => {
+      this.getAllProduit(this.page)
+    })
+  }
+
+  getAllProduit(page:number){
+    this.produitService.getAllProduits(page).subscribe((res)=>{
+      this.produits = res.content
+      this.totalPage = res.totalPages
     })
   }
 
@@ -77,13 +86,14 @@ export class ProduitListComponent implements OnInit {
 
   update(id: number) {
     this.produitService.getOneProduit(id).subscribe((res) => {
+      console.log(res.data)
       this.produitFound = res.data;
       this.idProduit = id;
     })
   }
 
   updateHotel(form: NgForm) {
-    this.produitService.updateProduit(this.produitFound, this.idProduit).subscribe((res) => {
+    this.produitService.updateProduit(this.produitFound).subscribe((res) => {
       if (res.status === 'success') {
         Swal.fire({
           position: 'top-end',

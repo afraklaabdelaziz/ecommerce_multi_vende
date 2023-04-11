@@ -28,7 +28,6 @@ public class UserServiceImpl implements UserServices {
     private RoleService roleService;
     private MailService mailService;
     private PdfGeneratorService pdfGenerator;
-
     public UserServiceImpl(UserRepository userRepository, AdresseService adresseService, DemmandeService demmandeService, RoleService roleService, MailService mailService,PdfGeneratorService pdfGenerator) {
         this.userRepository = userRepository;
         this.adresseService = adresseService;
@@ -52,6 +51,8 @@ public class UserServiceImpl implements UserServices {
         } else {
             userApp.setMotDePasse(new BCryptPasswordEncoder().encode(userApp.getMotDePasse()));
             userApp.setVendor(false);
+           Optional<Role> role = (Optional<Role>) roleService.findById(2L).getData();
+            userApp.getRoles().add(role.get());
             adresseService.addAdresse(userApp.getAdresse());
             userRepository.save(userApp);
            // mailService.sendEmail(userApp.getEmail(),"votre compte a ete cree avec success","Creation de compte","zzz");
@@ -98,6 +99,29 @@ public class UserServiceImpl implements UserServices {
     }
 
     @Override
+    public ResponseDto updatUser(UserApp userApp) {
+        if (userApp == null ){
+            return new ResponseDto("Bad request","ce user est null");
+        }else if(userApp.getNom() == "" || userApp.getMotDePasse() == ""
+                || userApp.getTelephone() == "" || userApp.getEmail() == ""){
+            return new ResponseDto("Bad request","compliter les information de user");
+        } else {
+            Object principale = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                User user = (User) principale;
+                Optional<UserApp> userFound =  userRepository.findByEmail(user.getUsername());
+                userFound.get().setNom(userApp.getNom());
+                userFound.get().setPrenom(userApp.getPrenom());
+                userFound.get().setEmail(userApp.getEmail());
+                userFound.get().setTelephone(userApp.getTelephone());
+                userFound.get().setAdresse(userApp.getAdresse());
+            adresseService.addAdresse(userFound.get().getAdresse());
+            userRepository.save(userApp);
+            // mailService.sendEmail(userApp.getEmail(),"votre compte a ete cree avec success","Creation de compte","zzz");
+            return new ResponseDto("success","votre compte a ete cree avec success",userFound);
+        }
+    }
+
+    @Override
     public ResponseDto devenirVendeur(DemandeVendeur demandeVendeur) {
         Object principale = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principale instanceof User){
@@ -114,17 +138,25 @@ public class UserServiceImpl implements UserServices {
     @Override
     public ResponseDto responseDemmandeVendeur(Boolean response,Long idDemmande) {
         if (response){
-             DemandeVendeur demandeVendeur = (DemandeVendeur) demmandeService.findDemmandeById(idDemmande).getData();
-             Optional<UserApp> userApp = userRepository.findByEmail(demandeVendeur.getUserApp().getEmail());
+            Optional<DemandeVendeur> demandeVendeur = (Optional<DemandeVendeur>)  demmandeService.findDemmandeById(idDemmande).getData();
+             Optional<UserApp> userApp = userRepository.findByEmail(demandeVendeur.get().getUserApp().getEmail());
              userApp.get().setVendor(true);
-             Role role = (Role) roleService.findById(3L).getData();
-             userApp.get().getRoles().add(role);
-            userRepository.save(userApp.get());
-            return new ResponseDto("success","vous éte maintenant vendeur");
+             Optional<Role> role = (Optional<Role>) roleService.findById(3L).getData();
+             userApp.get().getRoles().add(role.get());
+             userRepository.save(userApp.get());
+             demmandeService.deleteDemmande(idDemmande);
+            return new ResponseDto("success","vous avez acceptez demmande");
         }else {
-            return new ResponseDto("success","votre demmande est refuser");
+            demmandeService.deleteDemmande(idDemmande);
+            return new ResponseDto("success","demmande est refuser");
         }
 
+    }
+
+
+    @Override
+    public Long count() {
+        return userRepository.count();
     }
 
 

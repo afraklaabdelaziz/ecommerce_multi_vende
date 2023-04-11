@@ -18,6 +18,7 @@ public class DemmandeServiceImpl implements DemmandeService {
     private DemmandRepository demmandRepository;
     private UserRepository userRepository;
 
+
     public DemmandeServiceImpl(DemmandRepository demmandRepository,UserRepository userRepository) {
         this.demmandRepository = demmandRepository;
         this.userRepository = userRepository;
@@ -25,14 +26,19 @@ public class DemmandeServiceImpl implements DemmandeService {
 
     @Override
     public ResponseDto addDemmande(DemandeVendeur demandeVendeur) {
-        if (demandeVendeur == null){
-            return new ResponseDto("bad request","demmande est null");
-        }else {
-            demmandRepository.save(demandeVendeur);
-            return new ResponseDto("success","votre demmande est envoyer veuiller patienter");
+        Object principale = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (demandeVendeur == null) {
+            return new ResponseDto("bad request", "demmande est null");
+        } else if (principale instanceof User){
+                User user = (User) principale;
+               Optional<UserApp> userApp = userRepository.findByEmail(user.getUsername());
+               demandeVendeur.setUserApp(userApp.get());
+                demmandRepository.save(demandeVendeur);
+                return new ResponseDto("success", "votre demmande est envoyer veuiller patienter");
+            }else {
+             return new ResponseDto("bad request","user non authentifier");
         }
     }
-
     @Override
     public ResponseDto findAllDemmande() {
         return new ResponseDto("success","demmandes",demmandRepository.findAll());
@@ -59,5 +65,21 @@ public class DemmandeServiceImpl implements DemmandeService {
         }else {
             return new ResponseDto("success","demmande est ",demandeVendeur);
         }
+    }
+
+    @Override
+    public ResponseDto deleteDemmande(Long id) {
+        Optional<DemandeVendeur> demande = demmandRepository.findById(id);
+        if (!demande.isPresent()){
+            return new ResponseDto("bad request","demmane n'exite pas");
+        }else {
+            demmandRepository.delete(demande.get());
+            return new ResponseDto("success","demmande est supprimer",demande.get());
+        }
+    }
+
+    @Override
+    public Long count() {
+        return demmandRepository.count();
     }
 }

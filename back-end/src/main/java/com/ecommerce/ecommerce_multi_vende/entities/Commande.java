@@ -1,5 +1,8 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -70,11 +73,9 @@ public class Commande implements Serializable {
     public void setPrixTotal(Double prixTotal) {
         this.prixTotal = prixTotal;
     }
-
     public List<CommandeItems> getCommandeItemsList() {
         return commandeItemsList;
     }
-
     public void setCommandeItemsList(List<CommandeItems> commandeItemsList) {
         this.commandeItemsList = commandeItemsList;
     }

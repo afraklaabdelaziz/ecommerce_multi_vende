@@ -12,7 +12,8 @@ public interface UserServices {
     ResponseDto findByTelephone(String telephone);
     ResponseDto findAll();
     ResponseDto findUserAppByEmail(String email);
-
+    ResponseDto updatUser(UserApp userApp);
     ResponseDto devenirVendeur(DemandeVendeur demandeVendeur);
     ResponseDto responseDemmandeVendeur(Boolean response,Long idDemmande);
+    Long count();
 }

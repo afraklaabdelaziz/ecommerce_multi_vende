@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { CommandeService } from 'src/app/services/commande.service';
+import { DemmandeVendeurService } from 'src/app/services/demmande-vendeur.service';
+import { ProduitService } from 'src/app/services/produit-service.service';
 import { UserService } from 'src/app/services/user-service.service';
 
 @Component({
@@ -7,30 +10,41 @@ import { UserService } from 'src/app/services/user-service.service';
   styleUrls: ['./statistique.component.css']
 })
 export class StatistiqueComponent {
-  numberOfRoom!:number;
-  numberOfHotel!:number;
+  numberOfCommande!:number;
+  numberOfProduit!:number;
   numberOfUser!:number;
-  constructor(private userService:UserService) {
+  numberOfDemmande!:number;
+  constructor(private userService:UserService,private produitService:ProduitService,private demmandeService:DemmandeVendeurService,private commandeService:CommandeService) {
   }
 
   ngOnInit(){
-    this.numberRooms();
+    this.numberCommande();
     this.numberUsers();
-    this.numberHotels();
+    this.numberProduit();
+    this.numberDemmande()
   }
-  numberHotels(){
-      this.numberOfHotel = 5
+  numberProduit(){
+      this.produitService.count().subscribe((res)=>{
+        this.numberOfProduit = res
+      })
+      
   }
 
   numberUsers(){
-      this.numberOfUser = 5
+    this.userService.count().subscribe((res)=>{
+      this.numberOfUser = res
+    })
   }
 
-  numberRooms(){
-      this.numberOfRoom =5
+  numberCommande(){
+    this.commandeService.count().subscribe((res)=>{
+      this.numberOfCommande = res
+    })
   }
 
-  numberReservations(){
-
+  numberDemmande(){
+    this.demmandeService.count().subscribe((res)=>{
+      this.numberOfDemmande = res
+    })
   }
 }

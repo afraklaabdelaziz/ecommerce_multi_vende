@@ -1,1 +1,42 @@
-<p>statistique-vendeur works!</p>
+<!-- Header -->
+<div class="relative bg-blueGray-200 md:pt-32 pb-32 pt-12">
+  <div class="px-4 md:px-10 mx-auto w-full">
+    <div>
+      <!-- Card stats -->
+      <div class="flex flex-wrap">
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <app-statistic
+            statSubtitle="Client"
+            statTitle="{{numberOfUser}}"
+            statIconName="far fa-chart-bar"
+            statIconColor="bg-red-500"
+          ></app-statistic>
+        </div>
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <app-statistic
+            statSubtitle="Produits"
+            statTitle="{{numberOfProduit}}"
+            statIconName="fas fa-chart-pie"
+            statIconColor="bg-orange-500"
+          ></app-statistic>
+        </div>
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <app-statistic
+            statSubtitle="Achat"
+            statTitle="55"
+            statIconName="fas fa-users"
+            statIconColor="bg-pink-500"
+          ></app-statistic>
+        </div>
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <app-statistic
+            statSubtitle="Commande"
+            statTitle="{{numberOfCommande}}"
+            statIconName="far fa-booth-curtain"
+            statIconColor="bg-emerald-500"
+          ></app-statistic>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

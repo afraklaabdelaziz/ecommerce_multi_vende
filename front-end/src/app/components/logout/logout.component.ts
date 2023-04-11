@@ -14,7 +14,7 @@ export class LogoutComponent implements OnInit{
 
   ngOnInit(): void {
     this.userService.logout().subscribe((res) => {
-      localStorage.clear()
+      localStorage.removeItem('token')
       if (res.status == "success"){
         Swal.fire({
           position: 'top-end',

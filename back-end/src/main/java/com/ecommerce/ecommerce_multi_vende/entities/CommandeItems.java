@@ -1,5 +1,8 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -35,11 +38,11 @@ public class CommandeItems implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
+@JsonIgnore
     public Commande getCommande() {
         return commande;
     }
-
+@JsonSetter
     public void setCommande(Commande commande) {
         this.commande = commande;
     }

@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/authenticate/**").permitAll()
+                .antMatchers("/api/v1/produit/all").permitAll()
                 .antMatchers("/api/v1/produit/**").hasAnyAuthority("admin","vendeur")
                 //.antMatchers("/api/produits").hasAnyAuthority("client","stock")
                 //.antMatchers("/api/produits/**").hasAuthority("stock")

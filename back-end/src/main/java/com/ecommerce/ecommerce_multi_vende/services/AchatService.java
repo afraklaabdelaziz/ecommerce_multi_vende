@@ -7,4 +7,5 @@ public interface AchatService {
     public ResponseDto addAchat(Achat achat);
     public ResponseDto findAllAchat();
     public ResponseDto findAchat(Long idAchat);
+    Integer countByVendeur();
 }

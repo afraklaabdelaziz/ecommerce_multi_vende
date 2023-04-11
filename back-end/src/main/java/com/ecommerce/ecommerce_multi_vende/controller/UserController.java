@@ -2,6 +2,8 @@ package com.ecommerce.ecommerce_multi_vende.controller;
 
 import com.ecommerce.ecommerce_multi_vende.dto.ResponseDto;
 import com.ecommerce.ecommerce_multi_vende.entities.DemandeVendeur;
+import com.ecommerce.ecommerce_multi_vende.entities.UserApp;
+import com.ecommerce.ecommerce_multi_vende.services.FactureService;
 import com.ecommerce.ecommerce_multi_vende.services.PdfGeneratorService;
 import com.ecommerce.ecommerce_multi_vende.services.UserServices;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +19,12 @@ import java.util.Date;
 public class UserController {
     private UserServices userServices;
     private PdfGeneratorService pdfGenerator;
+    private FactureService factureService;
 
-    public UserController(UserServices userServices, PdfGeneratorService pdfGenerator) {
+    public UserController(UserServices userServices, PdfGeneratorService pdfGenerator, FactureService factureService) {
         this.userServices = userServices;
         this.pdfGenerator = pdfGenerator;
+        this.factureService = factureService;
     }
 
     @PostMapping("/devenir_vendeur")
@@ -46,6 +50,11 @@ public class UserController {
         return userServices.findUserAppByEmail(email);
     }
 
+    @GetMapping("/facture")
+    public ResponseDto findAllFactureClient(){
+        return factureService.findAllFactureClient();
+    }
+
     @GetMapping("/pdf")
     public void generetePdf(HttpServletResponse response) throws IOException {
         response.setContentType("Application/pdf");
@@ -55,6 +64,15 @@ public class UserController {
         String headerValue = "attachment; filename=pdf_"+curentDateTime + ".pdf";
         response.setHeader(headKey,headerValue);
         pdfGenerator.export(response);
+    }
+    @PutMapping("/update")
+    public ResponseDto update(@RequestBody UserApp userApp){
+        return userServices.updatUser(userApp);
+    }
+
+    @GetMapping("/count")
+    public Long count(){
+        return userServices.count();
     }
 
 }

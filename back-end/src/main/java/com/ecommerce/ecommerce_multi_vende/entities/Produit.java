@@ -1,5 +1,8 @@
 package com.ecommerce.ecommerce_multi_vende.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -21,9 +24,9 @@ public class Produit implements Serializable {
     private UserApp vendeur;
     @ManyToOne
     private Category category;
-    @OneToMany(mappedBy = "produit")
+    @OneToMany(mappedBy = "produit",cascade = CascadeType.ALL)
     private List<CommandeItems> commandeItemsList;
-    @OneToMany(mappedBy = "produit")
+    @OneToMany(mappedBy = "produit",cascade = CascadeType.ALL)
     private List<Achat> achatList;
 
     public Produit() {
@@ -96,11 +99,11 @@ public class Produit implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
-
+@JsonIgnore
     public List<CommandeItems> getCommandeItemsList() {
         return commandeItemsList;
     }
-
+@JsonSetter
     public void setCommandeItemsList(List<CommandeItems> commandeItemsList) {
         this.commandeItemsList = commandeItemsList;
     }
